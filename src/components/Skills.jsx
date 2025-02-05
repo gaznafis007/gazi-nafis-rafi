@@ -6,20 +6,6 @@ import { useInView } from "react-intersection-observer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Code2,
-  Palette,
-  Box,
-  Database,
-  Globe,
-  Layers,
-  Server,
-  Cpu,
-  Flame,
-  Paintbrush,
-  Library,
-  Layout,
-} from "lucide-react"
 import { FaHtml5, FaCss3Alt, FaNodeJs } from "react-icons/fa";
 import { IoLogoJavascript, IoLogoReact, IoLogoFirebase } from "react-icons/io5";
 import { TbBrandNextjs } from "react-icons/tb";
