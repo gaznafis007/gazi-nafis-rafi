@@ -1,16 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FaHtml5, FaCss3Alt, FaNodeJs } from "react-icons/fa";
-import { IoLogoJavascript, IoLogoReact, IoLogoFirebase } from "react-icons/io5";
-import { TbBrandNextjs } from "react-icons/tb";
-import { BiLogoRedux, BiLogoMongodb, BiLogoTailwindCss } from "react-icons/bi";
-import { SiExpress, SiShadcnui } from "react-icons/si";
+import { FaHtml5, FaCss3Alt, FaNodeJs } from "react-icons/fa"
+import { IoLogoJavascript, IoLogoReact, IoLogoFirebase } from "react-icons/io5"
+import { TbBrandNextjs } from "react-icons/tb"
+import { BiLogoRedux, BiLogoMongodb, BiLogoTailwindCss } from "react-icons/bi"
+import { SiExpress, SiShadcnui } from "react-icons/si"
 
 const skillCategories = {
   Frontend: [
@@ -52,6 +52,37 @@ const SkillIcon = ({ icon: Icon, color }) => (
   </motion.div>
 )
 
+const BackgroundShape = ({ color, size, initialPosition }) => {
+  const [position, setPosition] = useState(initialPosition)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPosition({
+        x: initialPosition.x + (Math.random() - 0.5) * 50,
+        y: initialPosition.y + (Math.random() - 0.5) * 50,
+      })
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [initialPosition])
+
+  return (
+    <motion.div
+      className="absolute rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+      style={{
+        backgroundColor: color,
+        width: size,
+        height: size,
+      }}
+      animate={position}
+      transition={{
+        duration: 5,
+        ease: "easeInOut",
+      }}
+    />
+  )
+}
+
 export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const [ref, inView] = useInView({
@@ -61,11 +92,16 @@ export default function Skills() {
 
   return (
     <section
-    id="skills"
+      id="skills"
       ref={ref}
-      className="py-24 min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white"
+      className="relative py-24 min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <div className="container px-4 mx-auto">
+      {/* Background shapes */}
+      <BackgroundShape color="#3B82F6" size={300} initialPosition={{ x: -100, y: -100 }} />
+      <BackgroundShape color="#10B981" size={250} initialPosition={{ x: 100, y: 100 }} />
+      <BackgroundShape color="#F59E0B" size={200} initialPosition={{ x: 200, y: -150 }} />
+
+      <div className="container px-4 mx-auto relative z-10">
         <motion.h2
           className="text-4xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-gray-800 to-gray-600"
           initial={{ opacity: 0, y: 20 }}
@@ -77,12 +113,12 @@ export default function Skills() {
 
         <Tabs defaultValue="Frontend" className="w-full max-w-4xl mx-auto">
           <div className="flex justify-center mb-12">
-            <TabsList className="inline-flex h-11 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground relative">
+            <TabsList className="inline-flex h-11 items-center justify-center rounded-lg bg-white/50 backdrop-blur-sm p-1 text-muted-foreground relative">
               {Object.keys(skillCategories).map((category) => (
                 <TabsTrigger
                   key={category}
                   value={category}
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-2.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-2.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-foreground data-[state=active]:shadow"
                 >
                   {category}
                 </TabsTrigger>
@@ -92,7 +128,7 @@ export default function Skills() {
 
           {Object.entries(skillCategories).map(([category, skills]) => (
             <TabsContent key={category} value={category}>
-              <Card className="bg-background/60 backdrop-blur-sm border shadow-md">
+              <Card className="bg-white/80 backdrop-blur-sm border shadow-md">
                 <CardContent className="p-8">
                   <motion.div
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"
@@ -116,7 +152,7 @@ export default function Skills() {
                         whileHover={{ scale: 1.05 }}
                         onHoverStart={() => setHoveredSkill(skill.name)}
                         onHoverEnd={() => setHoveredSkill(null)}
-                        className="flex flex-col items-center justify-center gap-4 p-4 rounded-xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                        className="flex flex-col items-center justify-center gap-4 p-4 rounded-xl bg-white/90 border-2 border-gray-100 shadow-lg hover:shadow-xl transition-shadow duration-300"
                       >
                         <SkillIcon icon={skill.icon} color={skill.color} />
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800 font-medium">
