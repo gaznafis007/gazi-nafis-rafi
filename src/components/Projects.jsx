@@ -52,8 +52,77 @@ const Projects = () => {
   }
 
   return (
-    <section id="projects" className="py-12 md:py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="relative py-12 md:py-24 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"],
+          }}
+          transition={{
+            duration: 20,
+            ease: "linear",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+          }}
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          animate={{
+            background: [
+              "linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)",
+              "linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)",
+              "linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)",
+              "linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)",
+            ],
+          }}
+          transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+        />
+      </div>
+
+      {/* Floating elements */}
+      <motion.div
+        className="absolute top-1/4 -left-1/4 w-96 h-96 rounded-full opacity-30 mix-blend-multiply filter blur-xl"
+        animate={{
+          y: [0, 50, 0],
+          scale: [1, 1.1, 1],
+          rotate: [0, 360],
+        }}
+        transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        style={{
+          background: "radial-gradient(circle, rgba(99,102,241,0.8) 0%, rgba(99,102,241,0) 70%)",
+        }}
+      />
+      <motion.div
+        className="absolute -bottom-1/4 -right-1/4 w-[30rem] h-[30rem] rounded-full opacity-30 mix-blend-multiply filter blur-xl"
+        animate={{
+          y: [0, -60, 0],
+          scale: [1, 1.2, 1],
+          rotate: [0, -360],
+        }}
+        transition={{ duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        style={{
+          background: "radial-gradient(circle, rgba(79,70,229,0.8) 0%, rgba(79,70,229,0) 70%)",
+        }}
+      />
+      <motion.div
+        className="absolute top-3/4 right-1/4 w-80 h-80 rounded-full opacity-30 mix-blend-multiply filter blur-xl"
+        animate={{
+          x: [0, 40, 0],
+          y: [0, -30, 0],
+          scale: [1, 1.1, 1],
+          rotate: [0, 180, 360],
+        }}
+        transition={{ duration: 35, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        style={{
+          background: "radial-gradient(circle, rgba(236,72,153,0.8) 0%, rgba(236,72,153,0) 70%)",
+        }}
+      />
+      <div className="container mx-auto px-4 relative z-10">
         <motion.h2
           className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-gray-600 to-slate-600"
           initial={{ opacity: 0, y: 20 }}
