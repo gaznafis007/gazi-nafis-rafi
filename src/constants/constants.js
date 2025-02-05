@@ -6,7 +6,7 @@ export const navItems = [
         name: 'Skills',
     },
     {
-        name: 'Project',
+        name: 'Projects',
     },
     {
         name: 'Contact',
@@ -21,7 +21,7 @@ export const projects = [
    github: "https://github.com/gaznafis007/ashroy-coonect",
    color: "#F59E0B",
    // color: "#10B981",
-   tags: ["React", "Next.js", "TailwindCss", "ShadCn", "MongoDB"],
+   tags: ["React", "Next.js", "TailwindCss", "ShadCn", "MongoDB", "Next Auth"],
  },
  
  {
@@ -47,6 +47,14 @@ export const projects = [
    link: "https://peon-bookshop-client.web.app/",
    github: "https://github.com/gaznafis007/peon-bookshop-client",
    color: "#3B82F6",
-   tags: ["React.js", "TailwindCss", "Express.js", "MongoDB"],
+   tags: ["React.js", "TailwindCss","DaisyUi", "Express.js", "MongoDB", "Firebase"],
+ },
+ {
+   title: "GMB Akash",
+   description: "A photography event website where user can purchase photography events and comment",
+   link: "https://gmb-client.web.app/",
+   github: "https://github.com/gaznafis007/gmb-client",
+   color: "#10B981",
+   tags: ["React.js", "TailwindCss", "Express.js", "MongoDB", "Firebase","DaisyUi"],
  },
 ]

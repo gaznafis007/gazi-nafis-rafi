@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Button } from "@/components/ui/button"
@@ -17,15 +17,15 @@ const Projects = () => {
   const [currentProject, setCurrentProject] = useState(0)
   const [direction, setDirection] = useState(0)
 
-  const nextProject = () => {
+  const nextProject = useCallback(() => {
     setDirection(1)
     setCurrentProject((prev) => (prev + 1) % projects.length)
-  }
+  }, [])
 
-  const prevProject = () => {
+  const prevProject = useCallback(() => {
     setDirection(-1)
     setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length)
-  }
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -34,21 +34,19 @@ const Projects = () => {
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [nextProject, prevProject]) // Added nextProject and prevProject to dependencies
+  }, [nextProject, prevProject])
 
   const variants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
     }),
     center: {
-      zIndex: 1,
       x: 0,
       opacity: 1,
     },
     exit: (direction) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? "100%" : "-100%",
       opacity: 0,
     }),
   }
@@ -65,8 +63,8 @@ const Projects = () => {
         >
           Featured Projects
         </motion.h2>
-        <div className="relative">
-          <AnimatePresence initial={false} custom={direction}>
+        <div className="relative overflow-hidden">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentProject}
               custom={direction}
@@ -91,7 +89,7 @@ const Projects = () => {
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
                 >
                   {projects[currentProject].title}
                 </motion.h3>
@@ -99,7 +97,7 @@ const Projects = () => {
                   className="text-base md:text-lg lg:text-xl text-gray-600"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
                 >
                   {projects[currentProject].description}
                 </motion.p>
@@ -107,7 +105,7 @@ const Projects = () => {
                   className="flex flex-wrap gap-2"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
                 >
                   {projects[currentProject].tags.map((tag, index) => (
                     <span
@@ -122,7 +120,7 @@ const Projects = () => {
                   className="flex flex-col sm:flex-row gap-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
                 >
                   <Button
                     asChild
@@ -163,7 +161,7 @@ const Projects = () => {
           className="flex justify-center mt-8 md:mt-12 gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
         >
           <Button
             onClick={prevProject}
