@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Github, Linkedin, Twitter } from "lucide-react"
+import { LuGithub, LuLinkedin } from "react-icons/lu";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const [ref, inView] = useInView({
@@ -28,7 +29,7 @@ const Footer = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <Github className="h-6 w-6" />
+            <LuGithub className="h-6 w-6" />
           </motion.a>
           <motion.a
             href="https://www.linkedin.com/in/gazi-nafis-4712771a4/"
@@ -38,7 +39,7 @@ const Footer = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <Linkedin className="h-6 w-6" />
+            <LuLinkedin className="h-6 w-6" />
           </motion.a>
           <motion.a
             href="#"
@@ -48,7 +49,7 @@ const Footer = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <Twitter className="h-6 w-6" />
+            <FaXTwitter className="h-6 w-6" />
           </motion.a>
         </div>
         <motion.p
@@ -57,7 +58,7 @@ const Footer = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          © {new Date().getFullYear()} Your Name. All rights reserved.
+          © {new Date().getFullYear()} Gazi Nafis Rafi. All rights reserved.
         </motion.p>
       </div>
     </motion.footer>

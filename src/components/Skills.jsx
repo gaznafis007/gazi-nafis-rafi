@@ -61,6 +61,7 @@ export default function Skills() {
 
   return (
     <section
+    id="skills"
       ref={ref}
       className="py-24 min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white"
     >
