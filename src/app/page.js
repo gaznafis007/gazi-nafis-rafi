@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar/>
       <Hero/>
       <About/>
-      {/* <GithubContribution username="gaznafis007"/> */}
+      <GithubContribution username="gaznafis007"/>
       <Skills/>
       <Projects/>
       <Contact/>

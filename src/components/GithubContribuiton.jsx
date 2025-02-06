@@ -1,174 +1,217 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
-import { Meteors } from "./ui/meteors";
-import { ShineBorder } from "./ui/shine-border";
+"use client"
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { FaGithub } from "react-icons/fa"
+import { Meteors } from "./ui/meteors"
+import { ShineBorder } from "./ui/shine-border"
 
 const GithubContribution = ({ username = "gaznafis007" }) => {
-  const [contributions, setContributions] = useState([]);
-  const [weeks, setWeeks] = useState([]);
-  const [totalContributions, setTotalContributions] = useState(0);
-  const [error, setError] = useState(null);
+  const [contributions, setContributions] = useState([])
+  const [displayedContributions, setDisplayedContributions] = useState([])
+  const [totalContributions, setTotalContributions] = useState(0)
+  const [error, setError] = useState(null)
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
 
   useEffect(() => {
     const fetchContributions = async () => {
       try {
-        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
-        if (!response.ok) throw new Error("Failed to fetch from the API");
-        
-        const data = await response.json();
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`)
+        if (!response.ok) throw new Error("Failed to fetch from the API")
 
-        // Filter contributions from 2023 to now
-        const startDate = new Date("2023-01-01");
-        const filteredContributions = data.contributions
-          .filter((day) => new Date(day.date) >= startDate)
-          .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-        setContributions(filteredContributions);
-        setTotalContributions(filteredContributions.reduce((sum, day) => sum + day.count, 0));
-
-        // Group contributions by weeks
-        const weeklyContributions = [];
-        let currentWeek = [];
-
-        filteredContributions.forEach((day) => {
-          const dayOfWeek = new Date(day.date).getDay();
-          if (dayOfWeek === 0 && currentWeek.length > 0) {
-            weeklyContributions.push(currentWeek);
-            currentWeek = [];
-          }
-          currentWeek.push(day);
-          if (currentWeek.length === 7) {
-            weeklyContributions.push(currentWeek);
-            currentWeek = [];
-          }
-        });
-
-        if (currentWeek.length > 0) {
-          weeklyContributions.push(currentWeek);
-        }
-
-        setWeeks(weeklyContributions);
+        const data = await response.json()
+        setContributions(data.contributions)
+        updateDisplayedContributions(data.contributions, selectedYear)
       } catch (error) {
-        setError("Error fetching contributions: " + error.message);
-        console.error("Error fetching contributions:", error);
+        setError("Error fetching contributions: " + error.message)
+        console.error("Error fetching contributions:", error)
       }
-    };
-
-    fetchContributions();
-  }, [username]);
-
-  const getContributionColor = (level) => {
-    switch (level) {
-      case 0:
-        return "bg-[#ddd]"; // Darker background
-      case 1:
-        return "bg-[#0e4429]"; // Darker green
-      case 2:
-        return "bg-[#006d32]"; // Dark green
-      case 3:
-        return "bg-[#26a641]"; // Medium green
-      case 4:
-        return "bg-[#39d353]"; // Light green
-      default:
-        return "bg-[#1b1f23]";
     }
-  };
 
-  const weekDays = ["", "Mon", "", "Wed", "", "Fri", ""];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    fetchContributions()
+  }, [username, selectedYear])
+
+  useEffect(() => {
+    updateDisplayedContributions(contributions, selectedYear)
+  }, [selectedYear, contributions])
+
+  const updateDisplayedContributions = (allContributions, year) => {
+    const endDate = new Date(year, 11, 31)
+    const startDate = new Date(endDate)
+    startDate.setFullYear(startDate.getFullYear() - 1)
+    startDate.setDate(startDate.getDate() + 1)
+
+    const filteredContributions = allContributions
+      .filter((day) => {
+        const date = new Date(day.date)
+        return date >= startDate && date <= endDate
+      })
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+
+    setDisplayedContributions(filteredContributions)
+    setTotalContributions(filteredContributions.reduce((sum, day) => sum + day.count, 0))
+  }
+
+  const getContributionColor = (count) => {
+    if (count === 0) return "bg-[#ebedf0]"
+    if (count < 5) return "bg-[#9be9a8]"
+    if (count < 10) return "bg-[#40c463]"
+    if (count < 15) return "bg-[#30a14e]"
+    return "bg-[#216e39]"
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    })
+  }
 
   if (error) {
     return (
       <div className="relative w-full max-w-6xl mx-auto p-8">
         <div className="text-center text-red-600">{error}</div>
       </div>
-    );
+    )
   }
 
+  const weeks = []
+  for (let i = 0; i < displayedContributions.length; i += 7) {
+    weeks.push(displayedContributions.slice(i, i + 7))
+  }
+
+  const months = Array.from(
+    new Set(
+      displayedContributions.map((d) => {
+        const date = new Date(d.date)
+        return date.toLocaleString("default", { month: "short" })
+      }),
+    ),
+  )
+
   return (
-    <div className="relative w-full max-w-6xl mx-auto">
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] p-[1px] overflow-hidden">
-        <Meteors number={10} />
-      </div>
-      <div className="relative rounded-xl bg-[#0d1117] p-8 overflow-x-auto">
-        <ShineBorder>
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
-              <FaGithub className="w-8 h-8 text-[#7d8590]" />
-              <h2 className="text-xl font-semibold text-[#7d8590]">
-                {totalContributions} contributions in the last year
-              </h2>
+    <div className="flex justify-center items-center bg-gray-50 py-16">
+      <div className="w-full max-w-5xl">
+        <ShineBorder className={'mx-auto'} color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}>
+          <div className="relative bg-white rounded-lg p-8 overflow-x-auto">
+            {/* Header Section */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-2">
+                <FaGithub className="w-8 h-8 text-[#24292f]" />
+                <h1 className="text-2xl font-bold text-[#24292f]">My GitHub Journey</h1>
+              </div>
+              <p className="text-[#57606a] text-sm ml-11">
+                Crafting code and building dreams, one commit at a time - @{username}
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <select className="bg-[#22262c] text-[#7d8590] rounded-md px-3 py-1 text-sm border border-[#363b42]">
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
+
+            {/* Contribution Stats */}
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-xl text-[#24292f]">{totalContributions} contributions</h2>
+              <select
+                className="bg-[#f6f8fa] text-[#24292f] rounded px-2 py-1 text-sm border border-[#d0d7de]"
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(Number(e.target.value))}
+              >
+                {[...Array(5)].map((_, i) => {
+                  const year = new Date().getFullYear() - i
+                  return (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  )
+                })}
               </select>
             </div>
-          </div>
-          <div className="overflow-x-auto pb-4">
-            <div className="inline-flex gap-8">
-              <div className="flex flex-col gap-[3px] pt-[22px]">
-                {weekDays.map((day, index) => (
-                  <div key={index} className="h-[10px] text-xs text-[#7d8590] leading-[10px]">
-                    {day}
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col min-w-max gap-4">
-                <div className="flex gap-[50px]">
-                  {months.map((month) => (
-                    <div key={month} className="text-xs text-[#7d8590] font-medium">
+
+            {/* Contribution Graph */}
+            <div className="overflow-x-auto">
+              <div className="inline-flex flex-col min-w-full">
+                {/* Months Row */}
+                <div className="flex ml-[42px] justify-between w-[calc(100%-42px)] mb-2">
+                  {months.map((month, index) => (
+                    <div key={index} className="text-xs text-[#57606a] font-medium w-[calc(100%/12)] text-center">
                       {month}
                     </div>
                   ))}
                 </div>
-                <div className="flex gap-[2px]">
-                  {weeks.map((week, weekIndex) => (
-                    <div key={weekIndex} className="flex flex-col gap-[2px]">
-                      {week.map((day) => (
-                        <motion.div
-                          key={day.date}
-                          className={`w-[10px] h-[10px] rounded-[2px] ${getContributionColor(day.level)}`}
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{
-                            duration: 0.2,
-                            delay: weekIndex * 0.01,
-                            ease: "easeOut",
-                          }}
-                          whileHover={{
-                            scale: 1.2,
-                            transition: { duration: 0.1 },
-                          }}
-                          title={`${day.count} contributions on ${day.date}`}
-                        />
-                      ))}
-                    </div>
-                  ))}
+
+                {/* Days and Contributions Grid */}
+                <div className="flex">
+                  {/* Days Column */}
+                  <div className="flex flex-col mr-2">
+                    {["Mon", "", "Wed", "", "Fri", ""].map((day, i) => (
+                      <div
+                        key={i}
+                        className="h-[10px] text-xs text-[#57606a] leading-[10px] w-8 text-right pr-2 mb-[2px]"
+                      >
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Contributions Grid */}
+                  <motion.div
+                    className="flex gap-[2px] flex-1 w-[calc(100%-42px)]"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: {
+                        opacity: 1,
+                        transition: { staggerChildren: 0.005 },
+                      },
+                    }}
+                  >
+                    {weeks.map((week, weekIndex) => (
+                      <div key={weekIndex} className="flex flex-col gap-[2px] flex-1">
+                        {week.map((day) => (
+                          <motion.div
+                            key={day.date}
+                            className={`w-full h-[10px] rounded-sm ${getContributionColor(day.count)}`}
+                            variants={{
+                              hidden: { scale: 0 },
+                              visible: { scale: 1 },
+                            }}
+                            whileHover={{
+                              scale: 1.2,
+                              transition: { duration: 0.1 },
+                            }}
+                            title={`${day.count} contributions on ${formatDate(day.date)}`}
+                          />
+                        ))}
+                      </div>
+                    ))}
+                  </motion.div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex justify-between items-center mt-4 text-xs text-[#7d8590]">
-            <span>Learn how we count contributions</span>
-            <div className="flex items-center gap-2">
-              <span>Less</span>
-              <div className="flex gap-[2px]">
-                {[0, 1, 2, 3, 4].map((level) => (
-                  <div key={level} className={`w-[10px] h-[10px] rounded-[2px] ${getContributionColor(level)}`} />
-                ))}
+
+            {/* Footer */}
+            <div className="flex justify-between items-center mt-4 text-xs text-[#57606a]">
+              <span>Learn how we count contributions</span>
+              <div className="flex items-center gap-1">
+                <span>Less</span>
+                <div className="flex gap-[2px]">
+                  {[0, 4, 8, 12, 16].map((count) => (
+                    <div key={count} className={`w-[10px] h-[10px] rounded-sm ${getContributionColor(count)}`} />
+                  ))}
+                </div>
+                <span>More</span>
               </div>
-              <span>More</span>
+            </div>
+
+            {/* Centered Meteors */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <Meteors number={40} />
             </div>
           </div>
         </ShineBorder>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GithubContribution;
+export default GithubContribution
+
