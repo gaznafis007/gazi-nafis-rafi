@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Mail, Menu, X } from "lucide-react"
 import { navItems } from "@/constants/constants"
+import { Button } from "./ui/button"
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -20,7 +22,12 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
+  // const texts = [
+  //   'Gazi',
+  //   'Nafis',
+  //   'Rafi',
+  //   'Gazi Nafis Rafi'
+  // ]
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -34,7 +41,8 @@ const Navbar = () => {
               Gazi Nafis Rafi
             </Link>
           </motion.div>
-          <div className="hidden md:flex space-x-8">
+          {/* new */}
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item, index) => (
               <motion.div
                 key={item?.name}
@@ -44,12 +52,24 @@ const Navbar = () => {
               >
                 <Link
                   href={`#${item?.name.toLowerCase()}`}
-                  className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300"
                 >
                   {item.name}
                 </Link>
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: navItems.length * 0.1 }}
+            >
+              <Button variant="outline" size="sm" className="flex items-center space-x-2" asChild>
+                <a href="mailto:gazinafisrafi.gnr@gmail.com">
+                  <Mail className="w-4 h-4" />
+                  <span>Contact</span>
+                </a>
+              </Button>
+            </motion.div>
           </div>
           <motion.button
             className="md:hidden text-gray-600 hover:text-gray-900 transition-colors duration-300"
@@ -81,13 +101,30 @@ const Navbar = () => {
                 >
                   <Link
                     href={`#${item?.name.toLowerCase()}`}
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300"
                     onClick={toggleMenu}
                   >
                     {item.name}
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: navItems.length * 0.1 }}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2 w-full justify-center"
+                  asChild
+                >
+                  <a href="mailto:gazinafisrafi.gnr@gmail.com">
+                    <Mail className="w-4 h-4" />
+                    <span>Contact</span>
+                  </a>
+                </Button>
+              </motion.div>
             </nav>
           </motion.div>
         )}
