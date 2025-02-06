@@ -93,7 +93,7 @@ const GithubContribution = ({ username = "gaznafis007" }) => {
   return (
     <div className="flex justify-center items-center bg-gray-50 py-16">
       <div className="w-full max-w-5xl">
-        <ShineBorder className={'mx-auto'} color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}>
+        <ShineBorder className={'mx-2 md:mx-auto'} color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}>
           <div className="relative bg-white rounded-lg p-8 overflow-x-auto">
             {/* Header Section */}
             <div className="mb-8">
