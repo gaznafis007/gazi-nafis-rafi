@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Gazi Nafis Rafi",
   description: "A portfolio website for Gazi Nafis Md Abdullah who is a MERN stack developer",
+  icons:{
+    icon: '/me.svg'
+  }
 }
 
 export default function RootLayout({ children }) {

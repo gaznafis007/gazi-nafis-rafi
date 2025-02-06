@@ -1,0 +1,66 @@
+<!-- Save this as artcell-avatar.svg, for example -->
+<svg
+  version="1.1"
+  viewBox="0 0 500 500"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Background: two-tone pink -->
+  <rect x="0" y="0" width="500" height="500" fill="#ff3d69" />
+  <path d="M0,0 L500,0 L500,500 Z" fill="#e81a5b" />
+
+  <!-- Group the character in the center -->
+  <g transform="translate(250, 220)">
+
+    <!-- Hair (black spiky) -->
+    <path
+      d="
+        M -35 -60
+        Q -30 -80 -20 -90
+        Q -10 -100 0 -100
+        Q 10 -100 20 -90
+        Q 30 -80 35 -60
+        L 35 -40
+        Q 35 -30 0 -30
+        Q -35 -30 -35 -40
+        Z
+      "
+      fill="#000"
+    />
+
+    <!-- Face (skin-colored ellipse) -->
+    <ellipse cx="0" cy="-20" rx="35" ry="40" fill="#f2d0b5" />
+
+    <!-- Eyes (white ellipses + black pupils) -->
+    <ellipse cx="-10" cy="-30" rx="5" ry="5" fill="#fff" />
+    <circle cx="-10" cy="-30" r="2" fill="#000" />
+    <ellipse cx="10" cy="-30" rx="5" ry="5" fill="#fff" />
+    <circle cx="10" cy="-30" r="2" fill="#000" />
+
+    <!-- Mouth (simple curved line) -->
+    <path
+      d="M -10 -10 Q 0 5 10 -10"
+      fill="none"
+      stroke="#000"
+      stroke-width="2"
+    />
+
+    <!-- Neck -->
+    <rect x="-5" y="0" width="10" height="10" fill="#f2d0b5" />
+
+    <!-- Shirt (black rectangle) -->
+    <rect x="-35" y="10" width="70" height="40" fill="#000" />
+
+    <!-- "Artcell" text in red -->
+    <text
+      x="0"
+      y="35"
+      font-size="10"
+      text-anchor="middle"
+      fill="#ff0000"
+      font-family="Arial"
+    >
+      ARTCELL
+    </text>
+
+  </g>
+</svg>
