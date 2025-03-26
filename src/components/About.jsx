@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer"
 import Image from "next/image"
 import { IconCloud } from "./ui/icon-cloud"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -104,7 +105,7 @@ const About = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 10 }}
               >
                 <Image
-                  src="/assets/me.jpeg"
+                  src="/assets/my-formal-image.jpg"
                   alt="Gazi Nafis Rafi"
                   layout="fill"
                   objectFit="cover"
@@ -124,6 +125,7 @@ const About = () => {
                 development.
               </p>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link href={'#contact'}>
                 <Button
                   variant="default"
                   size="lg"
@@ -131,6 +133,7 @@ const About = () => {
                 >
                   Get in Touch
                 </Button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>

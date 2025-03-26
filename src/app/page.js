@@ -1,5 +1,6 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
+import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import GithubContribution from "@/components/GithubContribuiton";
 import Hero from "@/components/Hero";
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero/>
       <About/>
       <GithubContribution username="gaznafis007"/>
+      <Experience/>
       <Skills/>
       <Projects/>
       <Contact/>
