@@ -16,8 +16,8 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Navbar/>
       <Hero/>
-      <About/>
       <GithubContribution username="gaznafis007"/>
+      <About/>
       <Experience/>
       <Skills/>
       <Projects/>

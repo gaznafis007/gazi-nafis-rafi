@@ -11,7 +11,7 @@ export default function ClientLayout({ children }) {
     // Simulate loading time (you can replace this with actual loading logic)
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2000)
+    }, 5000)
 
     return () => clearTimeout(timer)
   }, [])
