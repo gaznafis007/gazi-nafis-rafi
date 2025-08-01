@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
 import {
   motion,
@@ -11,10 +11,15 @@ import {
   AnimatePresence,
   useAnimationControls,
   useScroll,
-} from "framer-motion"
-import { FaHtml5, FaCss3Alt, FaNodeJs, FaPython, FaGem } from "react-icons/fa"
-import { IoLogoJavascript, IoLogoReact, IoLogoFirebase } from "react-icons/io5"
-import { TbBrandNextjs, TbBrandOauth, TbBrandReactNative, TbBrandVscode } from "react-icons/tb"
+} from "framer-motion";
+import { FaHtml5, FaCss3Alt, FaNodeJs, FaPython, FaGem } from "react-icons/fa";
+import { IoLogoJavascript, IoLogoReact, IoLogoFirebase } from "react-icons/io5";
+import {
+  TbBrandNextjs,
+  TbBrandOauth,
+  TbBrandReactNative,
+  TbBrandVscode,
+} from "react-icons/tb";
 import {
   SiTypescript,
   SiBootstrap,
@@ -34,56 +39,263 @@ import {
   SiGooglegemini,
   SiNestjs,
   SiMysql,
-} from "react-icons/si"
+  SiGit,
+  SiGithub,
+  SiNotion,
+  SiTrello,
+  SiJira,
+  SiGitlab,
+} from "react-icons/si";
 import { DiGoogleAnalytics } from "react-icons/di";
 import { GiSpermWhale } from "react-icons/gi";
 import { BsCursorFill } from "react-icons/bs";
 
 const skillCategories = {
   Languages: [
-    { name: "JavaScript", icon: <IoLogoJavascript />, color: "#F7DF1E", animationType: "bounce" },
-    { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6", animationType: "rotate" },
-    { name: "Python", icon: <FaPython />, color: "#3776AB", animationType: "pulse" },
+    {
+      name: "JavaScript",
+      icon: <IoLogoJavascript />,
+      color: "#F7DF1E",
+      animationType: "bounce",
+    },
+    {
+      name: "TypeScript",
+      icon: <SiTypescript />,
+      color: "#3178C6",
+      animationType: "rotate",
+    },
+    {
+      name: "Python",
+      icon: <FaPython />,
+      color: "#3776AB",
+      animationType: "pulse",
+    },
   ],
   Frontend: [
-    { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26", animationType: "bounce" },
-    { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6", animationType: "rotate" },
-    { name: "Bootstrap", icon: <SiBootstrap />, color: "#7952B3", animationType: "pulse" },
-    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4", animationType: "bounce" },
-    { name: "Material UI", icon: <SiMaterialdesign />, color: "#0081CB", animationType: "rotate" },
-    { name: "Shadcn UI", icon: <SiShadcnui />, color: "#000000", animationType: "pulse" },
-    { name: "React.js", icon: <IoLogoReact />, color: "#61DAFB", animationType: "spin" },
-    { name: "Next.js", icon: <TbBrandNextjs />, color: "#000000", animationType: "bounce" },
-    { name: "React Native", icon: <TbBrandReactNative />, color: "#61DAFB", animationType: "rotate" },
-    { name: "Redux", icon: <SiRedux />, color: "#764ABC", animationType: "pulse" },
-    { name: "TanStack Query", icon: <IoLogoReact />, color: "#FF4154", animationType: "bounce" },
-    { name: "Axios", icon: <SiAxios />, color: "#5A29E4", animationType: "rotate" },
-    { name: "REST API", icon: <DiGoogleAnalytics />, color: "#F4B400", animationType: "pulse" },
+    {
+      name: "HTML5",
+      icon: <FaHtml5 />,
+      color: "#E34F26",
+      animationType: "bounce",
+    },
+    {
+      name: "CSS3",
+      icon: <FaCss3Alt />,
+      color: "#1572B6",
+      animationType: "rotate",
+    },
+    {
+      name: "Bootstrap",
+      icon: <SiBootstrap />,
+      color: "#7952B3",
+      animationType: "pulse",
+    },
+    {
+      name: "Tailwind CSS",
+      icon: <SiTailwindcss />,
+      color: "#06B6D4",
+      animationType: "bounce",
+    },
+    {
+      name: "Material UI",
+      icon: <SiMaterialdesign />,
+      color: "#0081CB",
+      animationType: "rotate",
+    },
+    {
+      name: "Shadcn UI",
+      icon: <SiShadcnui />,
+      color: "#000000",
+      animationType: "pulse",
+    },
+    {
+      name: "React.js",
+      icon: <IoLogoReact />,
+      color: "#61DAFB",
+      animationType: "spin",
+    },
+    {
+      name: "Next.js",
+      icon: <TbBrandNextjs />,
+      color: "#000000",
+      animationType: "bounce",
+    },
+    {
+      name: "React Native",
+      icon: <TbBrandReactNative />,
+      color: "#61DAFB",
+      animationType: "rotate",
+    },
+    {
+      name: "Redux",
+      icon: <SiRedux />,
+      color: "#764ABC",
+      animationType: "pulse",
+    },
+    {
+      name: "TanStack Query",
+      icon: <IoLogoReact />,
+      color: "#FF4154",
+      animationType: "bounce",
+    },
+    {
+      name: "Axios",
+      icon: <SiAxios />,
+      color: "#5A29E4",
+      animationType: "rotate",
+    },
+    {
+      name: "REST API",
+      icon: <DiGoogleAnalytics />,
+      color: "#F4B400",
+      animationType: "pulse",
+    },
   ],
   Backend: [
-    { name: "Node.js", icon: <FaNodeJs />, color: "#339933", animationType: "bounce" },
-    { name: "Nest.js", icon: <SiNestjs />, color: "#E0234E", animationType: "pulse" },
-    { name: "Express.js", icon: <SiExpress />, color: "#000000", animationType: "rotate" },
-    { name: "MySQL", icon: <SiMysql />, color: "#005C84", animationType: "bounce" },
-    { name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1", animationType: "pulse" },
-    { name: "Supabase", icon: <SiSupabase />, color: "#3ECF8E", animationType: "rotate" },
-    { name: "MongoDB", icon: <SiMongodb />, color: "#47A248", animationType: "bounce" },
-    { name: "Firebase", icon: <IoLogoFirebase />, color: "#FFCA28", animationType: "pulse" },
-    { name: "JWT", icon: <SiJsonwebtokens />, color: "#D63AE1", animationType: "rotate" },
-    { name: "OAuth", icon: <TbBrandOauth />, color: "#000000", animationType: "bounce" },
+    {
+      name: "Node.js",
+      icon: <FaNodeJs />,
+      color: "#339933",
+      animationType: "bounce",
+    },
+    {
+      name: "Nest.js",
+      icon: <SiNestjs />,
+      color: "#E0234E",
+      animationType: "pulse",
+    },
+    {
+      name: "Express.js",
+      icon: <SiExpress />,
+      color: "#000000",
+      animationType: "rotate",
+    },
+    {
+      name: "MySQL",
+      icon: <SiMysql />,
+      color: "#005C84",
+      animationType: "bounce",
+    },
+    {
+      name: "PostgreSQL",
+      icon: <SiPostgresql />,
+      color: "#4169E1",
+      animationType: "pulse",
+    },
+    {
+      name: "Supabase",
+      icon: <SiSupabase />,
+      color: "#3ECF8E",
+      animationType: "rotate",
+    },
+    {
+      name: "MongoDB",
+      icon: <SiMongodb />,
+      color: "#47A248",
+      animationType: "bounce",
+    },
+    {
+      name: "Firebase",
+      icon: <IoLogoFirebase />,
+      color: "#FFCA28",
+      animationType: "pulse",
+    },
+    {
+      name: "JWT",
+      icon: <SiJsonwebtokens />,
+      color: "#D63AE1",
+      animationType: "rotate",
+    },
+    {
+      name: "OAuth",
+      icon: <TbBrandOauth />,
+      color: "#000000",
+      animationType: "bounce",
+    },
   ],
   Tools: [
-    { name: "Figma", icon: <SiFigma />, color: "#F24E1E", animationType: "bounce" },
-    { name: "VS Code", icon: <TbBrandVscode />, color: "#007ACC", animationType: "rotate" },
-    { name: "Postman", icon: <SiPostman />, color: "#FF6C37", animationType: "pulse" },
-    { name: "Thunder Client", icon: <AiFillThunderbolt />, color: "#4B0082", animationType: "bounce" },
-    { name: "OpenAI", icon: <SiOpenai />, color: "#412991", animationType: "rotate" },
-    { name: "Gemini", icon: <SiGooglegemini />, color: "#8E4EC6", animationType: "pulse" },
-    { name: "Grok", icon: <FaGem />, color: "#00A3E0", animationType: "bounce" },
-    { name: "Deepseek", icon: <GiSpermWhale />, color: "#007ACC", animationType: "rotate" },
-    { name: "Cursor", icon: <BsCursorFill />, color: "#FF6347", animationType: "pulse" },
+    {
+      name: "Figma",
+      icon: <SiFigma />,
+      color: "#F24E1E",
+      animationType: "bounce",
+    },
+    {
+      name: "VS Code",
+      icon: <TbBrandVscode />,
+      color: "#007ACC",
+      animationType: "rotate",
+    },
+    {
+      name: "Postman",
+      icon: <SiPostman />,
+      color: "#FF6C37",
+      animationType: "pulse",
+    },
+    {
+      name: "Thunder Client",
+      icon: <AiFillThunderbolt />,
+      color: "#4B0082",
+      animationType: "bounce",
+    },
+    {
+      name: "OpenAI",
+      icon: <SiOpenai />,
+      color: "#412991",
+      animationType: "rotate",
+    },
+    {
+      name: "Gemini",
+      icon: <SiGooglegemini />,
+      color: "#8E4EC6",
+      animationType: "pulse",
+    },
+    {
+      name: "Grok",
+      icon: <FaGem />,
+      color: "#00A3E0",
+      animationType: "bounce",
+    },
+    {
+      name: "Deepseek",
+      icon: <GiSpermWhale />,
+      color: "#007ACC",
+      animationType: "rotate",
+    },
+    {
+      name: "Cursor",
+      icon: <BsCursorFill />,
+      color: "#FF6347",
+      animationType: "pulse",
+    },
+    { name: "Git", icon: <SiGit />, color: "#F05032", animationType: "bounce" },
+    {
+      name: "GitHub",
+      icon: <SiGithub />,
+      color: "#181717",
+      animationType: "pulse",
+    },
+    {
+      name: "Notion",
+      icon: <SiNotion />,
+      color: "#000000",
+      animationType: "rotate",
+    },
+    {
+      name: "Trello",
+      icon: <SiTrello />,
+      color: "#0052CC",
+      animationType: "bounce",
+    },
+    {
+      name: "Jira",
+      icon: <SiJira />,
+      color: "#0052CC",
+      animationType: "pulse",
+    },
+    { name: "GitLab", icon: <SiGitlab />, color: "#FC6D26", animationType: "rotate" },
   ],
-}
+};
 
 // Custom hook for particle animation
 const useParticles = (count = 20) => {
@@ -94,19 +306,19 @@ const useParticles = (count = 20) => {
     color: `hsl(${Math.random() * 60 + 240}, 70%, 70%)`,
     duration: Math.random() * 20 + 10,
     delay: Math.random() * 5,
-  }))
-  return particles
-}
+  }));
+  return particles;
+};
 
 // Skill Icon Component with Advanced Animations
 const SkillIcon = ({ skill, index }) => {
-  const controls = useAnimationControls()
-  const iconRef = useRef(null)
-  const isInView = useInView(iconRef, { once: false, margin: "-100px" })
-  const [isHovered, setIsHovered] = useState(false)
+  const controls = useAnimationControls();
+  const iconRef = useRef(null);
+  const isInView = useInView(iconRef, { once: false, margin: "-100px" });
+  const [isHovered, setIsHovered] = useState(false);
 
   // Random rotation for initial state
-  const initialRotation = Math.random() * 10 - 5
+  const initialRotation = Math.random() * 10 - 5;
 
   // Animation variants based on type
   const getAnimationVariant = () => {
@@ -123,11 +335,16 @@ const SkillIcon = ({ skill, index }) => {
               repeatDelay: Math.random() * 2,
             },
           },
-        }
+        };
       case "rotate":
         return {
           animate: {
-            rotate: [initialRotation, initialRotation + 10, initialRotation - 10, initialRotation],
+            rotate: [
+              initialRotation,
+              initialRotation + 10,
+              initialRotation - 10,
+              initialRotation,
+            ],
             transition: {
               duration: 4,
               repeat: Number.POSITIVE_INFINITY,
@@ -136,7 +353,7 @@ const SkillIcon = ({ skill, index }) => {
               repeatDelay: Math.random(),
             },
           },
-        }
+        };
       case "pulse":
         return {
           animate: {
@@ -150,7 +367,7 @@ const SkillIcon = ({ skill, index }) => {
               repeatDelay: Math.random(),
             },
           },
-        }
+        };
       case "spin":
         return {
           animate: {
@@ -161,7 +378,7 @@ const SkillIcon = ({ skill, index }) => {
               ease: "linear",
             },
           },
-        }
+        };
       default:
         return {
           animate: {
@@ -172,11 +389,11 @@ const SkillIcon = ({ skill, index }) => {
               ease: "easeInOut",
             },
           },
-        }
+        };
     }
-  }
+  };
 
-  const animationVariant = getAnimationVariant()
+  const animationVariant = getAnimationVariant();
 
   // Hover animation
   const hoverVariants = {
@@ -189,17 +406,17 @@ const SkillIcon = ({ skill, index }) => {
         damping: 10,
       },
     },
-  }
+  };
 
   // Trigger animation when in view
   useEffect(() => {
     if (isInView) {
-      controls.start("animate")
+      controls.start("animate");
     }
-  }, [isInView, controls])
+  }, [isInView, controls]);
 
   // Generate particles for hover effect
-  const particles = useParticles(8)
+  const particles = useParticles(8);
 
   return (
     <div className="relative flex items-center justify-center">
@@ -268,40 +485,40 @@ const SkillIcon = ({ skill, index }) => {
           ))}
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState("Languages")
-  const [selectedSkill, setSelectedSkill] = useState(null)
-  const containerRef = useRef(null)
-  const isInView = useInView(containerRef, { once: false, amount: 0.2 })
+  const [activeCategory, setActiveCategory] = useState("Languages");
+  const [selectedSkill, setSelectedSkill] = useState(null);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.2 });
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
-  })
+  });
 
   // Mouse follower effect
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const smoothMouseX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const smoothMouseY = useSpring(mouseY, { damping: 50, stiffness: 400 })
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothMouseX = useSpring(mouseX, { damping: 50, stiffness: 400 });
+  const smoothMouseY = useSpring(mouseY, { damping: 50, stiffness: 400 });
 
   const handleMouseMove = (e) => {
-    const { left, top } = containerRef.current.getBoundingClientRect()
-    mouseX.set(e.clientX - left)
-    mouseY.set(e.clientY - top)
-  }
+    const { left, top } = containerRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
 
   // Parallax effect for background elements
-  const parallaxY = useTransform(smoothMouseY, [0, 1000], [-20, 20])
-  const parallaxX = useTransform(smoothMouseX, [0, 1000], [-20, 20])
+  const parallaxY = useTransform(smoothMouseY, [0, 1000], [-20, 20]);
+  const parallaxX = useTransform(smoothMouseX, [0, 1000], [-20, 20]);
 
   // Scroll-linked animations
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 1])
-  const backgroundScale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1])
-  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1])
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1])
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 1]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
 
   // Animation variants
   const containerVariants = {
@@ -313,7 +530,7 @@ export default function Skills() {
         delayChildren: 0.2,
       },
     },
-  }
+  };
 
   const skillVariants = {
     hidden: { scale: 0.8, opacity: 0, y: 20 },
@@ -337,7 +554,7 @@ export default function Skills() {
       scale: 0.95,
       transition: { type: "spring", stiffness: 400, damping: 10 },
     },
-  }
+  };
 
   const titleVariants = {
     hidden: { opacity: 0, y: -30 },
@@ -350,7 +567,7 @@ export default function Skills() {
         damping: 30,
       },
     },
-  }
+  };
 
   const categoryVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -364,71 +581,71 @@ export default function Skills() {
         delay: i * 0.1,
       },
     }),
-  }
+  };
 
   // Generate gradient based on active category
   const getCategoryColor = () => {
     switch (activeCategory) {
       case "Languages":
-        return "from-violet-600 to-indigo-600"
+        return "from-violet-600 to-indigo-600";
       case "Frontend":
-        return "from-blue-600 to-cyan-500"
+        return "from-blue-600 to-cyan-500";
       case "Backend":
-        return "from-emerald-600 to-teal-500"
+        return "from-emerald-600 to-teal-500";
       case "Tools":
-        return "from-amber-500 to-orange-500"
+        return "from-amber-500 to-orange-500";
       default:
-        return "from-violet-600 to-indigo-600"
+        return "from-violet-600 to-indigo-600";
     }
-  }
+  };
 
   // Generate background gradient for category
   const getCategoryBgColor = () => {
     switch (activeCategory) {
       case "Languages":
-        return "from-violet-50 to-indigo-100"
+        return "from-violet-50 to-indigo-100";
       case "Frontend":
-        return "from-blue-50 to-cyan-100"
+        return "from-blue-50 to-cyan-100";
       case "Backend":
-        return "from-emerald-50 to-teal-100"
+        return "from-emerald-50 to-teal-100";
       case "Tools":
-        return "from-amber-50 to-orange-100"
+        return "from-amber-50 to-orange-100";
       default:
-        return "from-violet-50 to-indigo-100"
+        return "from-violet-50 to-indigo-100";
     }
-  }
+  };
 
   // Generate text color for category
   const getCategoryTextColor = () => {
     switch (activeCategory) {
       case "Languages":
-        return "text-violet-600"
+        return "text-violet-600";
       case "Frontend":
-        return "text-blue-600"
+        return "text-blue-600";
       case "Backend":
-        return "text-emerald-600"
+        return "text-emerald-600";
       case "Tools":
-        return "text-amber-500"
+        return "text-amber-500";
       default:
-        return "text-violet-600"
+        return "text-violet-600";
     }
-  }
+  };
 
   // Generate shadow color for category
   const getCategoryShadowColor = () => {
     switch (activeCategory) {
       case "Languages":
-        return "shadow-violet-500/20"
+        return "shadow-violet-500/20";
       case "Frontend":
-        return "shadow-blue-500/20"
+        return "shadow-blue-500/20";
       case "Backend":
-        return "shadow-emerald-500/20"
+        return "shadow-emerald-500/20";
       case "Tools":
-        return "shadow-amber-500/20"
+        return "shadow-amber-500/20";
       default:
-        return "shadow-violet-500/20"
+        return "shadow-violet-500/20";
     }
-  }
+  };
 
   return (
     <motion.section
@@ -459,7 +676,11 @@ export default function Skills() {
             scale: [1, 1.1, 1],
             opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
         />
 
         <motion.div
@@ -472,7 +693,12 @@ export default function Skills() {
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.4, 0.2],
           }}
-          transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 10,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
 
         <motion.div
@@ -485,15 +711,33 @@ export default function Skills() {
             scale: [1, 1.15, 1],
             opacity: [0.2, 0.35, 0.2],
           }}
-          transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
+          transition={{
+            duration: 7,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 2,
+          }}
         />
 
         {/* Grid pattern */}
-        <motion.div className="absolute inset-0 opacity-[0.07]" style={{ x: parallaxX, y: parallaxY }}>
+        <motion.div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{ x: parallaxX, y: parallaxY }}
+        >
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(94, 63, 141, 0.7)" strokeWidth="1" />
+              <pattern
+                id="grid"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="rgba(94, 63, 141, 0.7)"
+                  strokeWidth="1"
+                />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -505,7 +749,8 @@ export default function Skills() {
       <motion.div
         className="hidden md:block absolute w-40 h-40 rounded-full pointer-events-none mix-blend-multiply"
         style={{
-          background: "radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0) 70%)",
+          background:
+            "radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0) 70%)",
           x: smoothMouseX,
           y: smoothMouseY,
           translateX: "-50%",
@@ -530,7 +775,10 @@ export default function Skills() {
         </motion.h2>
 
         {/* Category Pills */}
-        <motion.div className="flex flex-wrap justify-center gap-3 mb-12" variants={containerVariants}>
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 mb-12"
+          variants={containerVariants}
+        >
           {Object.keys(skillCategories).map((category, index) => (
             <motion.button
               key={category}
@@ -629,11 +877,17 @@ export default function Skills() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <p className={`${getCategoryTextColor()} transition-colors duration-700`}>
-            {activeCategory === "Languages" && "Programming languages I'm proficient in."}
-            {activeCategory === "Frontend" && "Technologies I use to build beautiful, responsive user interfaces."}
-            {activeCategory === "Backend" && "Tools and frameworks I use for server-side development."}
-            {activeCategory === "Tools" && "Software and utilities that enhance my development workflow."}
+          <p
+            className={`${getCategoryTextColor()} transition-colors duration-700`}
+          >
+            {activeCategory === "Languages" &&
+              "Programming languages I'm proficient in."}
+            {activeCategory === "Frontend" &&
+              "Technologies I use to build beautiful, responsive user interfaces."}
+            {activeCategory === "Backend" &&
+              "Tools and frameworks I use for server-side development."}
+            {activeCategory === "Tools" &&
+              "Software and utilities that enhance my development workflow."}
           </p>
         </motion.div>
       </div>
@@ -657,8 +911,14 @@ export default function Skills() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full" style={{ backgroundColor: `${selectedSkill.color}20` }}>
-                  <div className="text-3xl" style={{ color: selectedSkill.color }}>
+                <div
+                  className="p-3 rounded-full"
+                  style={{ backgroundColor: `${selectedSkill.color}20` }}
+                >
+                  <div
+                    className="text-3xl"
+                    style={{ color: selectedSkill.color }}
+                  >
                     {selectedSkill.icon}
                   </div>
                 </div>
@@ -666,8 +926,9 @@ export default function Skills() {
               </div>
 
               <p className="text-gray-600 mb-4">
-                {selectedSkill.name} is a {activeCategory.toLowerCase().slice(0, -1)} technology that I use regularly in
-                my projects.
+                {selectedSkill.name} is a{" "}
+                {activeCategory.toLowerCase().slice(0, -1)} technology that I
+                use regularly in my projects.
               </p>
 
               <div className="flex justify-end">
@@ -685,5 +946,5 @@ export default function Skills() {
         )}
       </AnimatePresence>
     </motion.section>
-  )
+  );
 }
