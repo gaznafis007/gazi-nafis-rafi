@@ -33,6 +33,7 @@ import {
   SiOpenai,
   SiGooglegemini,
   SiNestjs,
+  SiMysql,
 } from "react-icons/si"
 import { DiGoogleAnalytics } from "react-icons/di";
 import { GiSpermWhale } from "react-icons/gi";
@@ -69,6 +70,7 @@ const skillCategories = {
     { name: "OAuth", icon: <TbBrandOauth />, color: "#000000", animationType: "pulse" },
     { name: "Supabase", icon: <SiSupabase />, color: "#3ECF8E", animationType: "bounce" },
     { name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1", animationType: "rotate" },
+        { name: "MySQL", icon: <SiMysql />, color: "#005C84", animationType: "pulse" },
   ],
   Tools: [
     { name: "Figma", icon: <SiFigma />, color: "#F24E1E", animationType: "bounce" },
