@@ -32,6 +32,7 @@ import {
   SiPostgresql,
   SiOpenai,
   SiGooglegemini,
+  SiNestjs,
 } from "react-icons/si"
 import { DiGoogleAnalytics } from "react-icons/di";
 import { GiSpermWhale } from "react-icons/gi";
@@ -60,6 +61,7 @@ const skillCategories = {
   ],
   Backend: [
     { name: "Node.js", icon: <FaNodeJs />, color: "#339933", animationType: "bounce" },
+    { name: "Nest.js", icon: <SiNestjs />, color: "#E0234E", animationType: "pulse" },
     { name: "Express.js", icon: <SiExpress />, color: "#000000", animationType: "rotate" },
     { name: "MongoDB", icon: <SiMongodb />, color: "#47A248", animationType: "pulse" },
     { name: "Firebase", icon: <IoLogoFirebase />, color: "#FFCA28", animationType: "bounce" },
