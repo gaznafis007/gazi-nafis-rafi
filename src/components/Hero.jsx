@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Github } from "lucide-react"
+import Link from "next/link"
 
 const Hero = () => {
   const nameAnimation = {
@@ -141,8 +142,8 @@ const Hero = () => {
             size="lg"
             className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-md text-lg font-medium transition-all duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto"
           >
-            <a
-              href="https://drive.google.com/file/d/175vPv-DwuVR3aTCGsn-tauFUB_UMxw0k/view?usp=drive_link"
+            <Link
+              href="https://drive.google.com/file/d/1YCE7mnIKboX4Pq-fgQhmqoH5Ov6eEWZ3/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center"
@@ -150,7 +151,7 @@ const Hero = () => {
             >
               View My Resume
               <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
+            </Link>
           </Button>
           <Button
             asChild
