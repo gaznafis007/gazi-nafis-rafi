@@ -21,7 +21,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointEleme
 
 const GithubContribution = ({ username = "gaznafis007" }) => {
   const [contributions, setContributions] = useState([])
-  const [displayedContributions, setDisplayedContributions] = useState([])
+  const [displayedContributions, setDisplayedContributions] = useState([]);
   const [totalContributions, setTotalContributions] = useState(0)
   const [stats, setStats] = useState(null)
   const [error, setError] = useState(null)
@@ -38,14 +38,14 @@ const GithubContribution = ({ username = "gaznafis007" }) => {
 
         // Mock GitHub stats (replace with actual GitHub API calls)
         setStats({
-          totalCommits: 1500,
-          repositories: 107,
-          pullRequests: 90,
-          stars: 11,
+          totalCommits: Object.values(data.total).reduce((sum, commits) => sum + commits, 0),
+          repositories: 115,
+          pullRequests: 200,
+          stars: 15,
           languages: [
             { name: "JavaScript", count: 70 },
-            { name: "TypeScript", count: 35 },
-            { name: "Python", count: 2 },
+            { name: "TypeScript", count: 65 },
+            { name: "Python", count: 12 },
           ],
           monthlyCommits: [30, 10, 7, 36, 45, 80, 100, 120, 170, 160, 220, 190],
         })
@@ -170,7 +170,7 @@ const GithubContribution = ({ username = "gaznafis007" }) => {
   )
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-300">
+    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200/30 to-gray-300/30 animate-pulse-slow" />
