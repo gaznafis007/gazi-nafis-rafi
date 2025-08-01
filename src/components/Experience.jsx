@@ -24,11 +24,32 @@ const Experience = () => {
 
   const experiences = [
     {
+      company: "Appify Devs",
+      location: "Dhaka, Bangladesh",
+      position: "Software Engineer",
+      jobType: "Remote",
+      duration: "Dec 2024 - Present",
+      color: "from-blue-500 to-purple-600",
+      icon: "🌟",
+      responsibilities: [
+        "Developing both client frontend nd their interactive dashboard",
+        "Contributing to both frontend and backend",
+        "Tech stack: Next.js, Redux, Nest.js REST API, AI(APIs), MySQL, MongoDB, SSLcommercez",
+      ],
+      projects: [
+        "Contributed to built multiple AI product",
+        "Created an AI platform where user can can use an LLM and buy other LLM as subscription: echogpt.live",
+        "Developed a responsive end to end web application to ssl commerce, bkash payment integration: archxin.com",
+        "Created a interactive industrial grade admin dashboard template.",
+        "Contributed to built admin dashboards for several clients.",
+      ],
+    },
+    {
       company: "Boom Software UK",
       location: "Buckinghamshire, UK",
       position: "Frontend Developer",
       jobType: "Remote",
-      duration: "Aug 2023 - Oct 2024",
+      duration: "Aug 2024 - Oct 2024",
       color: "from-blue-500 to-indigo-600",
       icon: "💻",
       responsibilities: [
